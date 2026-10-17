@@ -1,0 +1,11 @@
+{
+  "name": "luhenggang-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "钢管行业企业站 + GEO 演示站",
+  "scripts": {
+    "build": "node scripts/build_pages.js",
+    "check": "node scripts/validate_site.js",
+    "serve": "npx serve . -l 8080"
+  }
+}

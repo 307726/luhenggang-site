@@ -1,0 +1,16 @@
+# 鲁恒钢管（演示站）
+
+> 本站是钢管行业企业站建站与 GEO 案例演示，非真实经营主体。内容展示 20G 高压锅炉管、合金管的执行标准、规格范围与选型方法。
+
+## 核心页面
+
+- [首页](https://www.luhenggang.com/)：产品分类、供货说明、联系方式
+- [20G 高压锅炉管](https://www.luhenggang.com/products/20g-boiler-tube.html)：参数表、化学成分、常见问题
+- [20G 与 15CrMoG 的区别](https://www.luhenggang.com/guides/20g-vs-15crmog.html)：选型对比
+
+## 事实要点
+
+- 20G 高压锅炉管执行 GB/T 5310
+- 15CrMoG 含铬钼合金元素，通常用于温度和压力更高的工况
+- 演示规格范围：外径 6-426 mm，壁厚 1-60 mm
+- 本站数据为演示数据，实际参数以质保书和执行标准为准

@@ -1,0 +1,148 @@
+backend:
+  name: github
+  repo: 341340762/luhenggang-site
+  branch: main
+  # 生产环境需要 OAuth 代理，配置方式见 admin/README.md
+  # base_url: https://your-oauth-proxy.example.com
+  # auth_endpoint: auth
+
+local_backend: true
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+locale: zh_Hans
+
+collections:
+  - name: "site"
+    label: "站点设置"
+    files:
+      - name: "settings"
+        label: "基本信息"
+        file: "content/site.json"
+        fields:
+          - { label: "品牌名", name: "brand", widget: "string" }
+          - { label: "短品牌名", name: "shortBrand", widget: "string" }
+          - { label: "域名", name: "domain", widget: "string" }
+          - { label: "更新时间", name: "updated", widget: "string", hint: "格式：2026-10-17" }
+          - { label: "电话", name: "phone", widget: "string" }
+          - { label: "邮箱", name: "email", widget: "string" }
+          - { label: "地址", name: "address", widget: "string" }
+
+  - name: "products"
+    label: "产品"
+    label_singular: "产品"
+    folder: "content/products"
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    extension: "json"
+    format: "json"
+    sortable_fields: ["order", "name"]
+    fields:
+      - { label: "排序", name: "order", widget: "number", value_type: "int", default: 99 }
+      - { label: "Slug（URL 用，发布后不要改）", name: "slug", widget: "string" }
+      - { label: "产品名称", name: "name", widget: "string" }
+      - { label: "页面标题", name: "title", widget: "string" }
+      - { label: "页面描述", name: "description", widget: "text" }
+      - { label: "执行标准", name: "standard", widget: "string" }
+      - { label: "常用材质", name: "materials", widget: "string" }
+      - { label: "外径范围", name: "size", widget: "string" }
+      - { label: "壁厚范围", name: "thickness", widget: "string" }
+      - { label: "交货状态", name: "state", widget: "string" }
+      - { label: "适用工况", name: "applications", widget: "string" }
+      - { label: "直接回答", name: "answer", widget: "text" }
+      - label: "正文段落"
+        name: "intro"
+        widget: "list"
+        field: { label: "段落", name: "text", widget: "text" }
+      - label: "规格参数"
+        name: "specs"
+        widget: "list"
+        fields:
+          - { label: "项目", name: "k", widget: "string" }
+          - { label: "内容", name: "v", widget: "string" }
+      - label: "化学成分（可选）"
+        name: "composition"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "材质", name: "material", widget: "string" }
+          - { label: "C", name: "c", widget: "string" }
+          - { label: "Si", name: "si", widget: "string" }
+          - { label: "Mn", name: "mn", widget: "string" }
+          - { label: "Cr", name: "cr", widget: "string" }
+          - { label: "Mo", name: "mo", widget: "string" }
+      - label: "常见问题"
+        name: "faq"
+        widget: "list"
+        fields:
+          - { label: "问题", name: "q", widget: "string" }
+          - { label: "回答", name: "a", widget: "text" }
+      - label: "相关产品 slug"
+        name: "related"
+        widget: "list"
+        field: { label: "slug", name: "slug", widget: "string" }
+
+  - name: "guides"
+    label: "技术指南"
+    label_singular: "指南"
+    folder: "content/guides"
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    extension: "json"
+    format: "json"
+    sortable_fields: ["order", "title"]
+    fields:
+      - { label: "排序", name: "order", widget: "number", value_type: "int", default: 99 }
+      - { label: "Slug（URL 用，发布后不要改）", name: "slug", widget: "string" }
+      - { label: "页面标题", name: "title", widget: "string" }
+      - { label: "页面描述", name: "description", widget: "text" }
+      - { label: "H1 大标题", name: "h1", widget: "string" }
+      - label: "标签"
+        name: "badges"
+        widget: "list"
+        field: { label: "标签", name: "text", widget: "string" }
+      - { label: "直接回答", name: "answer", widget: "text" }
+      - label: "内容块"
+        name: "blocks"
+        widget: "list"
+        fields:
+          - { label: "小标题", name: "h2", widget: "string" }
+          - label: "段落"
+            name: "p"
+            widget: "list"
+            required: false
+            field: { label: "段落", name: "text", widget: "text" }
+          - label: "列表"
+            name: "ul"
+            widget: "list"
+            required: false
+            field: { label: "条目", name: "item", widget: "string" }
+          - label: "表格（可选）"
+            name: "table"
+            widget: "object"
+            required: false
+            fields:
+              - label: "表头"
+                name: "headers"
+                widget: "list"
+                field: { label: "列名", name: "text", widget: "string" }
+              - label: "行"
+                name: "rows"
+                widget: "list"
+                fields:
+                  - { label: "第 1 列", name: "c1", widget: "string" }
+                  - { label: "第 2 列", name: "c2", widget: "string" }
+                  - { label: "第 3 列（可选）", name: "c3", widget: "string", required: false }
+      - label: "常见问题"
+        name: "faq"
+        widget: "list"
+        fields:
+          - { label: "问题", name: "q", widget: "string" }
+          - { label: "回答", name: "a", widget: "text" }
+      - label: "相关文章 slug"
+        name: "related"
+        widget: "list"
+        field: { label: "slug", name: "slug", widget: "string" }
