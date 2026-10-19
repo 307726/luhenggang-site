@@ -1,10 +1,7 @@
+# 登录由 Netlify Identity + Git Gateway 负责
 backend:
-  name: github
-  repo: 307726/luhenggang-site
+  name: git-gateway
   branch: main
-  # 生产环境需要 OAuth 代理，配置方式见 admin/README.md
-  # base_url: https://your-oauth-proxy.example.com
-  # auth_endpoint: auth
 
 local_backend: true
 

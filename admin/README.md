@@ -33,25 +33,7 @@ npm run build
 
 ## 二、上线后的登录方式
 
-`admin/config.yml` 默认用 GitHub 后端：
-
-```yaml
-backend:
-  name: github
-  repo: YOUR_GITHUB_USER/luhenggang-site
-  branch: main
-```
-
-上线前要做两件事：
-
-1. 创建 GitHub 仓库，把本站推上去，把 `YOUR_GITHUB_USER` 改成你的用户名。
-2. 给 Decap 配一个 OAuth 入口（二选一）：
-
-### 方式 A：Netlify + Git Gateway（最省事）
-
-1. 把站点部署到 Netlify
-2. 在 Netlify 后台开启 Identity 和 Git Gateway
-3. 把 `config.yml` 的 backend 改成：
+`admin/config.yml` 现在用 Netlify 的 Git Gateway 后端：
 
 ```yaml
 backend:
@@ -59,13 +41,18 @@ backend:
   branch: main
 ```
 
-4. 在 `admin/index.html` 里加一行：
+上线前在 Netlify 后台做三件事：
 
-```html
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-```
+1. **Identity → Enable Identity**
+2. **Identity → Services → Git Gateway → Enable Git Gateway**
+3. **Identity → Users → Invite users**，填你的邮箱，角色选 Admin 或 Editor；收到邮件后设置密码
 
-### 方式 B：GitHub OAuth 代理（部署在 Cloudflare Pages 时用）
+然后部署最新代码，打开 `/admin/`，用刚邀请的邮箱登录。
+
+> 说明：Git Gateway 已被 Netlify 标记为 deprecated，但当前仍可用，适合练手。
+> 如果以后不可用，再换 GitHub OAuth 代理（见下）。
+
+### 备选：GitHub OAuth 代理（部署在 Cloudflare Pages 时用）
 
 1. 在 GitHub 创建 OAuth App，回调地址指向你的代理
 2. 部署一个小 Worker 做 code 换 token
