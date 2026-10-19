@@ -35,4 +35,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://www.luhenggang.com/sitemap.xml
+Sitemap: https://luhenggang.space/sitemap.xml

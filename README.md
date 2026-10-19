@@ -65,7 +65,7 @@ npx serve .
 
 ## 上线前必须替换
 
-1. `https://www.luhenggang.com` → 真实域名（涉及 canonical、schema、sitemap、robots、llms.txt）
+1. 当前域名已设为 `https://luhenggang.space`；换域名时涉及 canonical、schema、sitemap、robots、llms.txt
 2. 品牌名、电话、邮箱、地址 → 真实信息（或保持演示声明）
 3. 产品参数、化学成分、库存 → 真实数据，并注明「以质保书为准」
 4. 页脚备案号 → 走国内空间时替换为真实备案号并链接工信部
