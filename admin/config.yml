@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: 341340762/luhenggang-site
+  repo: 307726/luhenggang-site
   branch: main
   # 生产环境需要 OAuth 代理，配置方式见 admin/README.md
   # base_url: https://your-oauth-proxy.example.com
