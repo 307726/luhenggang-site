@@ -1,0 +1,14 @@
+{
+  "order": 1,
+  "slug": "site-launch",
+  "title": "演示站完成域名绑定与 HTTPS 配置",
+  "category": "公司动态",
+  "date": "2026-10-20",
+  "summary": "站点已绑定 luhenggang.space，完成 HTTPS、sitemap 和基础结构化数据配置，并开始向搜索引擎提交收录。",
+  "body": [
+    "鲁恒钢管演示站已完成独立域名绑定，访问地址为 https://luhenggang.space。站点启用了 HTTPS，www 子域名会 301 跳转到主域名，避免重复内容。",
+    "站内已配置 sitemap、robots.txt、Organization、Product、FAQPage 等结构化数据，并开始向必应等搜索引擎提交页面。后续会继续补充公司动态、行业新闻和技术问答内容。",
+    "本站为建站与 GEO 案例演示，非真实经营主体。域名、托管和后台流程均用于练习企业站从搭建到收录的完整路径。"
+  ],
+  "featured": true
+}

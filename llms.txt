@@ -7,6 +7,9 @@
 - [首页](https://luhenggang.space/)：产品分类、供货说明、联系方式
 - [20G 高压锅炉管](https://luhenggang.space/products/20g-boiler-tube.html)：参数表、化学成分、常见问题
 - [20G 与 15CrMoG 的区别](https://luhenggang.space/guides/20g-vs-15crmog.html)：选型对比
+- [新闻与动态](https://luhenggang.space/news/index.html)：公司动态与行业新闻
+- [关于我们](https://luhenggang.space/about.html)：站点说明与内容原则
+- [联系我们](https://luhenggang.space/contact.html)：演示联系方式与询价表单
 
 ## 事实要点
 

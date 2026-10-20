@@ -20,7 +20,10 @@ function readJsonDir(rel) {
 const site = JSON.parse(fs.readFileSync(path.join(root, "content/site.json"), "utf8"));
 const products = readJsonDir("content/products").sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 const articles = readJsonDir("content/guides").sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
-const data = { site, products, articles };
+const news = readJsonDir("content/news").sort(
+  (a, b) => (b.date || "").localeCompare(a.date || "") || (a.order ?? 99) - (b.order ?? 99)
+);
+const data = { site, products, articles, news };
 
 const esc = (s) =>
   String(s)
@@ -66,8 +69,9 @@ ${JSON.stringify(schema, null, 2)}
       <nav class="nav" aria-label="主导航">
         <a href="${prefix}products/index.html">产品中心</a>
         <a href="${prefix}guides/index.html">技术指南</a>
-        <a href="${prefix}index.html#faq">常见问题</a>
-        <a href="${prefix}index.html#contact">联系我们</a>
+        <a href="${prefix}news/index.html">新闻</a>
+        <a href="${prefix}about.html">关于我们</a>
+        <a href="${prefix}contact.html">联系我们</a>
       </nav>
     </div>
   </header>
@@ -89,6 +93,9 @@ ${body}
           <p><a href="${prefix}index.html">首页</a></p>
           <p><a href="${prefix}products/index.html">产品中心</a></p>
           <p><a href="${prefix}guides/index.html">技术指南</a></p>
+          <p><a href="${prefix}news/index.html">新闻</a></p>
+          <p><a href="${prefix}about.html">关于我们</a></p>
+          <p><a href="${prefix}contact.html">联系我们</a></p>
         </div>
         <div>
           <h4>说明</h4>
@@ -123,6 +130,10 @@ function productUrl(p) {
 
 function articleUrl(a) {
   return `${site.domain}/guides/${a.slug}.html`;
+}
+
+function newsUrl(n) {
+  return `${site.domain}/news/${n.slug}.html`;
 }
 
 function renderProduct(p) {
@@ -497,13 +508,272 @@ ${cards}
   });
 }
 
+function renderNewsIndex() {
+  const categorySections = ["公司动态", "行业新闻"]
+    .map((category) => {
+      const items = data.news.filter((n) => n.category === category);
+      if (!items.length) return "";
+      const cards = items
+        .map(
+          (n) => `          <article class="card">
+            <p class="kicker">${esc(category)} · ${esc(n.date)}</p>
+            <h3>${esc(n.title)}</h3>
+            <p>${esc(n.summary)}</p>
+            <a class="more" href="${n.slug}.html">阅读全文 →</a>
+          </article>`
+        )
+        .join("\n");
+      return `        <div class="section-head" style="margin-top:36px">
+          <h2>${esc(category)}</h2>
+        </div>
+        <div class="grid">
+${cards}
+        </div>`;
+    })
+    .join("\n");
+
+  const body = `    <div class="container">
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="../index.html">首页</a> / 新闻
+      </nav>
+      <div class="page-head">
+        <span class="kicker">News</span>
+        <h1>新闻与动态</h1>
+        <p style="color:#64748b;max-width:720px">公司动态与行业新闻。内容以演示为主，用来练习企业站的信息发布与搜索收录。</p>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top:20px">
+      <div class="container">
+${categorySections}
+      </div>
+    </section>`;
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "新闻与动态",
+    url: `${site.domain}/news/index.html`,
+    isPartOf: { "@type": "WebSite", name: site.brand, url: `${site.domain}/` },
+    hasPart: data.news.map((n) => ({ "@type": "NewsArticle", headline: n.title, url: newsUrl(n) }))
+  };
+
+  return layout({
+    title: `新闻与动态-${site.brand}`,
+    description: "鲁恒钢管演示站的公司动态与行业新闻，包含建站进展、内容整理与钢管选型知识。",
+    canonicalPath: "/news/index.html",
+    ogType: "website",
+    schema,
+    body,
+    prefix: "../"
+  });
+}
+
+function renderNewsItem(n) {
+  const canonicalPath = `/news/${n.slug}.html`;
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "NewsArticle",
+        headline: n.title,
+        description: n.summary,
+        articleSection: n.category,
+        datePublished: n.date,
+        dateModified: n.date,
+        inLanguage: "zh-CN",
+        mainEntityOfPage: newsUrl(n),
+        author: { "@type": "Organization", name: site.brand },
+        publisher: { "@type": "Organization", name: site.brand }
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "首页", item: `${site.domain}/` },
+          { "@type": "ListItem", position: 2, name: "新闻", item: `${site.domain}/news/index.html` },
+          { "@type": "ListItem", position: 3, name: n.title, item: newsUrl(n) }
+        ]
+      }
+    ]
+  };
+
+  const paragraphs = n.body.map((p) => `          <p>${esc(p)}</p>`).join("\n");
+  const related = data.news
+    .filter((x) => x.slug !== n.slug)
+    .slice(0, 2)
+    .map((x) => `            <a href="../news/${x.slug}.html">${esc(x.title)}</a>`)
+    .join("\n");
+
+  const body = `    <div class="container">
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="../index.html">首页</a> / <a href="../news/index.html">新闻</a> / ${esc(n.title)}
+      </nav>
+      <div class="page-head">
+        <span class="kicker">News</span>
+        <h1>${esc(n.title)}</h1>
+        <div class="badges">
+          <span class="badge">${esc(n.category)}</span>
+          <span class="badge">${esc(n.date)}</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top:28px">
+      <div class="container two-col">
+        <article class="article">
+          <div class="quick-answer">
+            <b>摘要：</b>${esc(n.summary)}
+          </div>
+${paragraphs}
+
+          <h2>相关阅读</h2>
+          <div class="related">
+${related}
+            <a href="../news/index.html">全部新闻</a>
+          </div>
+        </article>
+
+${contactAside()}
+      </div>
+    </section>`;
+
+  return layout({
+    title: `${n.title}-${site.brand}`,
+    description: n.summary,
+    canonicalPath,
+    ogType: "article",
+    schema,
+    body,
+    prefix: "../"
+  });
+}
+
+function renderAbout() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "关于我们",
+    url: `${site.domain}/about.html`,
+    isPartOf: { "@type": "WebSite", name: site.brand, url: `${site.domain}/` }
+  };
+
+  const body = `    <div class="container">
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="index.html">首页</a> / 关于我们
+      </nav>
+      <div class="page-head">
+        <span class="kicker">About</span>
+        <h1>关于我们</h1>
+        <p style="color:#64748b;max-width:720px">一个用于练习企业建站与 GEO 的钢管行业演示站。</p>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top:28px">
+      <div class="container two-col">
+        <article class="article">
+          <div class="quick-answer">
+            <b>说明：</b>本站为建站案例演示，非真实经营主体。品牌、电话、地址和库存信息均为演示数据。
+          </div>
+          <h2>我们在做什么</h2>
+          <p>这个站点用钢管行业作为案例，练习从域名、托管、后台内容管理到搜索收录和 GEO 优化的完整流程。页面里的产品分类、参数表、执行标准和常见问题，都是按照真实企业站的阅读与检索习惯组织的。</p>
+          <h2>内容原则</h2>
+          <ul>
+            <li>产品参数用表格呈现，不把关键信息印在图片里</li>
+            <li>先给结论，再给对比和适用边界</li>
+            <li>公司名称、电话、地址保持全站一致</li>
+            <li>重要页面提供结构化数据，方便搜索和 AI 理解</li>
+          </ul>
+          <h2>技术栈</h2>
+          <p>静态 HTML + 内容 JSON + 构建脚本，后台使用 Decap CMS，托管在 Netlify。每次在后台发布内容，都会提交到 Git 并自动重新部署。</p>
+          <div class="related">
+            <a href="products/index.html">产品中心</a>
+            <a href="news/index.html">新闻与动态</a>
+            <a href="contact.html">联系我们</a>
+          </div>
+        </article>
+
+${contactAside()}
+      </div>
+    </section>`;
+
+  return layout({
+    title: `关于我们-${site.brand}`,
+    description: "鲁恒钢管演示站的项目说明、内容原则与技术栈。本站为建站与 GEO 案例演示，非真实经营主体。",
+    canonicalPath: "/about.html",
+    ogType: "website",
+    schema,
+    body,
+    prefix: ""
+  });
+}
+
+function renderContact() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "联系我们",
+    url: `${site.domain}/contact.html`,
+    isPartOf: { "@type": "WebSite", name: site.brand, url: `${site.domain}/` }
+  };
+
+  const body = `    <div class="container">
+      <nav class="breadcrumb" aria-label="面包屑">
+        <a href="index.html">首页</a> / 联系我们
+      </nav>
+      <div class="page-head">
+        <span class="kicker">Contact</span>
+        <h1>联系我们</h1>
+        <p style="color:#64748b;max-width:720px">演示联系方式，仅用于页面结构展示；表单不会发送真实数据。</p>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top:28px">
+      <div class="container two-col">
+        <div class="panel">
+          <h2 style="margin-top:0">演示联系方式</h2>
+          <p><strong>电话：</strong>${esc(site.phone)}</p>
+          <p><strong>邮箱：</strong>${esc(site.email)}</p>
+          <p><strong>地址：</strong>${esc(site.address)}</p>
+          <p style="color:#64748b">以上均为演示信息，不对应真实业务。真实项目上线前需替换为实际联系方式。</p>
+          <form class="form" action="#" method="get" style="max-width:520px">
+            <input type="text" name="name" placeholder="称呼（演示，不会发送）" aria-label="称呼">
+            <input type="tel" name="phone" placeholder="手机号（演示，不会发送）" aria-label="手机号">
+            <input type="text" name="company" placeholder="公司名称（演示，不会发送）" aria-label="公司名称">
+            <textarea name="message" rows="4" placeholder="采购需求：材质、规格、数量（演示，不会发送）" aria-label="采购需求"></textarea>
+            <button class="btn btn-primary" type="button">提交（演示按钮）</button>
+          </form>
+        </div>
+        <aside class="contact-box">
+          <h3 style="margin-top:0">询价前请准备</h3>
+          <p>材质牌号、外径×壁厚、数量、执行标准和交货状态。信息越完整，供应商越容易给出准确报价。</p>
+          <p>本站为建站案例演示，非真实经营主体。</p>
+          <a class="btn btn-ghost" style="margin-top:8px" href="guides/pipe-inspection.html">查看验收清单</a>
+        </aside>
+      </div>
+    </section>`;
+
+  return layout({
+    title: `联系我们-${site.brand}`,
+    description: "鲁恒钢管演示站的联系页面，展示电话、邮箱、地址与询价表单结构。所有联系方式均为演示信息。",
+    canonicalPath: "/contact.html",
+    ogType: "website",
+    schema,
+    body,
+    prefix: ""
+  });
+}
+
 function renderSitemap() {
   const urls = [
     { loc: `${site.domain}/`, priority: "1.0", freq: "weekly" },
     { loc: `${site.domain}/products/index.html`, priority: "0.9", freq: "weekly" },
     ...data.products.map((p) => ({ loc: productUrl(p), priority: "0.9", freq: "monthly" })),
     { loc: `${site.domain}/guides/index.html`, priority: "0.8", freq: "weekly" },
-    ...data.articles.map((a) => ({ loc: articleUrl(a), priority: "0.8", freq: "monthly" }))
+    ...data.articles.map((a) => ({ loc: articleUrl(a), priority: "0.8", freq: "monthly" })),
+    { loc: `${site.domain}/news/index.html`, priority: "0.8", freq: "weekly" },
+    ...data.news.map((n) => ({ loc: newsUrl(n), priority: "0.7", freq: "monthly" })),
+    { loc: `${site.domain}/about.html`, priority: "0.5", freq: "monthly" },
+    { loc: `${site.domain}/contact.html`, priority: "0.6", freq: "monthly" }
   ];
   const body = urls
     .map(
@@ -524,7 +794,11 @@ ${body}
 
 write("products/index.html", renderProductsIndex());
 write("guides/index.html", renderGuidesIndex());
+write("news/index.html", renderNewsIndex());
+write("about.html", renderAbout());
+write("contact.html", renderContact());
 for (const p of data.products) write(`products/${p.slug}.html`, renderProduct(p));
 for (const a of data.articles) write(`guides/${a.slug}.html`, renderArticle(a));
+for (const n of data.news) write(`news/${n.slug}.html`, renderNewsItem(n));
 write("sitemap.xml", renderSitemap());
 console.log("\ndone.");

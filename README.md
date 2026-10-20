@@ -9,6 +9,7 @@ index.html                       首页（手写维护）
 content/site.json                站点设置（后台可改）
 content/products/*.json          每个产品一个文件（后台可改）
 content/guides/*.json            每篇指南一个文件（后台可改）
+content/news/*.json              每条新闻一个文件（后台可改）
 admin/                           Decap CMS 后台（/admin/）
 scripts/build_pages.js           构建脚本（生成页面与 sitemap）
 scripts/validate_site.js         技术自检脚本
@@ -16,6 +17,10 @@ products/index.html              产品中心
 products/*.html                  6 个产品页（生成）
 guides/index.html                技术指南
 guides/*.html                    5 篇问答页（生成）
+news/index.html                  新闻列表（生成）
+news/*.html                      新闻详情（生成）
+about.html                       关于我们（生成）
+contact.html                     联系我们（生成）
 assets/style.css                 全站样式（无外部依赖）
 assets/uploads/                  后台上传图片目录
 robots.txt                       放行主流搜索与 AI 爬虫

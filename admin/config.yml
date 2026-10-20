@@ -143,3 +143,29 @@ collections:
         name: "related"
         widget: "list"
         field: { label: "slug", name: "slug", widget: "string" }
+
+  - name: "news"
+    label: "新闻"
+    label_singular: "新闻"
+    folder: "content/news"
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    extension: "json"
+    format: "json"
+    sortable_fields: ["date", "order"]
+    fields:
+      - { label: "排序", name: "order", widget: "number", value_type: "int", default: 99 }
+      - { label: "Slug（URL 用，发布后不要改）", name: "slug", widget: "string" }
+      - { label: "标题", name: "title", widget: "string" }
+      - label: "分类"
+        name: "category"
+        widget: "select"
+        options: ["公司动态", "行业新闻"]
+      - { label: "日期", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "摘要", name: "summary", widget: "text" }
+      - label: "正文段落"
+        name: "body"
+        widget: "list"
+        field: { label: "段落", name: "text", widget: "text" }
+      - { label: "首页推荐", name: "featured", widget: "boolean", default: false, required: false }
