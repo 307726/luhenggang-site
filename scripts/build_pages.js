@@ -51,6 +51,7 @@ function layout({ title, description, canonicalPath, ogType, schema, body, prefi
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="${esc(canonical)}">
   <link rel="stylesheet" href="${prefix}assets/style.css">
+  <script defer src="${prefix}assets/site.js"></script>
   <meta property="og:type" content="${ogType}">
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
@@ -61,18 +62,34 @@ ${JSON.stringify(schema, null, 2)}
 </head>
 <body>
   <header class="site-header">
+    <div class="header-utility">
+      <div class="container utility-inner">
+        <p>钢管选型资料站 · 按材质、标准与规格查产品</p>
+        <div class="utility-meta">
+          <a href="tel:${esc(site.phone.replace(/[^\d+]/g, ""))}"><strong>${esc(site.phone)}</strong></a>
+          <em class="utility-demo">演示联系方式</em>
+        </div>
+      </div>
+    </div>
     <div class="container header-inner">
       <a class="brand" href="${prefix}index.html">
         <span class="brand-mark">鲁恒</span>
-        <span>${esc(site.shortBrand)}<small>LUHENG STEEL · 演示站</small></span>
+        <span>${esc(site.shortBrand)}<small>STEEL PIPE · 选型与供应资料</small></span>
       </a>
-      <nav class="nav" aria-label="主导航">
+      <nav class="nav" id="site-nav" aria-label="主导航">
         <a href="${prefix}products/index.html">产品中心</a>
         <a href="${prefix}guides/index.html">技术指南</a>
-        <a href="${prefix}news/index.html">新闻</a>
+        <a href="${prefix}news/index.html">行业资讯</a>
         <a href="${prefix}about.html">关于我们</a>
         <a href="${prefix}contact.html">联系我们</a>
       </nav>
+      <div class="header-action">
+        <a class="header-phone" href="tel:${esc(site.phone.replace(/[^\d+]/g, ""))}">${esc(site.phone)}</a>
+        <a class="btn btn-primary" href="${prefix}contact.html">整理询价</a>
+      </div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="打开导航">
+        <span></span>
+      </button>
     </div>
   </header>
 
@@ -84,26 +101,29 @@ ${body}
     <div class="container">
       <div class="footer-grid">
         <div>
-          <h4>${esc(site.brand)}</h4>
-          <p>钢管行业企业站样板：参数表 + 执行标准 + 选型问答。</p>
-          <p>用于建站与 GEO 案例演示，不构成任何供货或价格承诺。</p>
+          <div class="footer-brand">
+            <span class="brand-mark">鲁恒</span>
+            <strong>${esc(site.shortBrand)}</strong>
+          </div>
+          <p>高压锅炉管、合金管、管线管及常用无缝钢管选型资料。</p>
+          <p>本站为演示项目，不构成供货、价格或材质承诺。</p>
         </div>
         <div>
-          <h4>页面</h4>
+          <h4>站内导航</h4>
           <p><a href="${prefix}index.html">首页</a></p>
           <p><a href="${prefix}products/index.html">产品中心</a></p>
           <p><a href="${prefix}guides/index.html">技术指南</a></p>
-          <p><a href="${prefix}news/index.html">新闻</a></p>
+          <p><a href="${prefix}news/index.html">行业资讯</a></p>
           <p><a href="${prefix}about.html">关于我们</a></p>
           <p><a href="${prefix}contact.html">联系我们</a></p>
         </div>
         <div>
-          <h4>说明</h4>
-          <p>本站为建站案例演示，非真实经营主体。</p>
-          <p>电话、地址、库存均为演示信息。</p>
+          <h4>采购提示</h4>
+          <p>询价请准备：材质、外径×壁厚、数量、标准与交期。</p>
+          <p>材质性能与实际供货范围以质保书和双方确认文件为准。</p>
         </div>
       </div>
-      <p class="demo-note">© 2026 ${esc(site.brand)} · 建站与 GEO 练习项目 · 备案号：演示站未备案</p>
+      <p class="demo-note">© 2026 ${esc(site.brand)} · 演示站 · 电话、地址与库存均为演示信息</p>
     </div>
   </footer>
 </body>
@@ -113,13 +133,24 @@ ${body}
 
 function contactAside() {
   return `        <aside class="contact-box">
-          <h3 style="margin-top:0">演示联系方式</h3>
-          <p>电话：${esc(site.phone)}<br>邮箱：${esc(site.email)}<br>地址：${esc(site.address)}</p>
-          <form class="form" action="#" method="get">
-            <input type="text" name="name" placeholder="称呼（演示，不会发送）" aria-label="称呼">
-            <input type="tel" name="phone" placeholder="手机号（演示，不会发送）" aria-label="手机号">
-            <textarea name="message" rows="3" placeholder="规格与数量（演示，不会发送）" aria-label="采购需求"></textarea>
-            <button class="btn btn-primary" type="button">提交（演示按钮）</button>
+          <h3>整理采购需求</h3>
+          <p>电话：${esc(site.phone)}<br>${esc(site.address)}</p>
+          <form class="form inquiry-form" action="#" method="get">
+            <label>称呼
+              <input type="text" name="name" data-label="称呼" placeholder="怎么称呼">
+            </label>
+            <label>联系电话
+              <input type="tel" name="phone" data-label="联系电话" placeholder="便于后续联系">
+            </label>
+            <label>规格与数量
+              <textarea name="message" data-label="规格与数量" rows="3" placeholder="例如：20G，Φ133×10，20 吨"></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">生成询价摘要</button>
+            <p class="form-note">仅在本页生成，不会自动发送。</p>
+            <div class="inquiry-result" aria-live="polite">
+              <strong>询价摘要</strong>
+              <pre></pre>
+            </div>
           </form>
         </aside>`;
 }
@@ -199,7 +230,7 @@ ${compositionRows.map((r) => `                <tr>${r.map((c) => `<td>${esc(c)}<
               </tbody>
             </table>
           </div>
-          <p style="color:#64748b;font-size:13px">注：以上为演示用典型值，实际化学成分和力学性能以钢厂质保书及执行标准为准。</p>`
+          <p class="small-note">注：以上为演示用典型值，实际化学成分和力学性能以钢厂质保书及执行标准为准。</p>`
     : "";
 
   const faq = p.faq
@@ -222,7 +253,7 @@ ${compositionRows.map((r) => `                <tr>${r.map((c) => `<td>${esc(c)}<
         <a href="../index.html">首页</a> / <a href="../products/index.html">产品中心</a> / ${esc(p.name)}
       </nav>
       <div class="page-head">
-        <span class="kicker">Product</span>
+        <span class="kicker">产品参数 / ${esc(p.standard)}</span>
         <h1>${esc(p.name)}</h1>
         <div class="badges">
           <span class="badge">执行标准：${esc(p.standard)}</span>
@@ -233,11 +264,11 @@ ${compositionRows.map((r) => `                <tr>${r.map((c) => `<td>${esc(c)}<
       </div>
     </div>
 
-    <section class="section" style="padding-top:32px">
+    <section class="section section-compact">
       <div class="container two-col">
         <div>
           <div class="quick-answer">
-            <b>直接回答：</b>${esc(p.answer)}
+            <b>选型要点：</b>${esc(p.answer)}
           </div>
 
 ${p.intro.map((t) => `          <p style="color:#334155">${esc(t)}</p>`).join("\n")}
@@ -256,8 +287,8 @@ ${composition}
             <li>${esc(p.applications)}</li>
             <li>询价时提供：材质、外径×壁厚、数量、执行标准、交货状态和交期要求。</li>
             <li>到货核对：材质单、质保书、炉批号、外观、壁厚和长度。</li>
-            <li>本站为演示站，不提供真实库存、报价或发货服务。</li>
           </ul>
+          <p class="small-note">本站参数用于页面演示，实际库存、价格和供货范围需另行确认。</p>
 
           <h2>常见问题</h2>
           <div class="faq">
@@ -366,7 +397,7 @@ ${b.table.rows
         <a href="../index.html">首页</a> / <a href="../guides/index.html">技术指南</a> / ${esc(a.h1)}
       </nav>
       <div class="page-head">
-        <span class="kicker">Guide</span>
+        <span class="kicker">技术指南 / 选型参考</span>
         <h1>${esc(a.h1)}</h1>
         <div class="badges">
 ${a.badges.map((b) => `          <span class="badge">${esc(b)}</span>`).join("\n")}
@@ -374,11 +405,11 @@ ${a.badges.map((b) => `          <span class="badge">${esc(b)}</span>`).join("\n
       </div>
     </div>
 
-    <section class="section" style="padding-top:28px">
+    <section class="section section-compact">
       <div class="container two-col">
         <article class="article">
           <div class="quick-answer">
-            <b>直接回答：</b>${esc(a.answer)}
+            <b>先给结论：</b>${esc(a.answer)}
           </div>
 
 ${blocks}
@@ -413,10 +444,11 @@ ${contactAside()}
 function renderProductsIndex() {
   const cards = data.products
     .map(
-      (p) => `          <article class="card">
+      (p, index) => `          <article class="card">
+            <span class="catalog-no">${String(index + 1).padStart(2, "0")} / ${esc(p.standard)}</span>
             <h3>${esc(p.name)}</h3>
             <p>${esc(p.description)}</p>
-            <a class="more" href="${p.slug}.html">查看参数与选型 →</a>
+            <a class="more" href="${p.slug}.html">查看参数与选型</a>
           </article>`
     )
     .join("\n");
@@ -426,15 +458,15 @@ function renderProductsIndex() {
         <a href="../index.html">首页</a> / 产品中心
       </nav>
       <div class="page-head">
-        <span class="kicker">Products</span>
+        <span class="kicker">01 / 产品目录</span>
         <h1>产品中心</h1>
-        <p style="color:#64748b;max-width:720px">按工况和标准划分产品线。每个页面都给出执行标准、规格范围、材质说明和常见问题，方便采购与搜索。</p>
+        <p>按工况和标准划分产品线，先查执行标准与规格范围，再核对材质和交货状态。</p>
       </div>
     </div>
 
-    <section class="section" style="padding-top:28px">
+    <section class="section section-compact">
       <div class="container">
-        <div class="grid">
+        <div class="product-catalog">
 ${cards}
         </div>
       </div>
@@ -462,10 +494,11 @@ ${cards}
 function renderGuidesIndex() {
   const cards = data.articles
     .map(
-      (a) => `          <article class="card">
+      (a, index) => `          <article class="card">
+            <span class="catalog-no">${String(index + 1).padStart(2, "0")} / 选型参考</span>
             <h3>${esc(a.h1)}</h3>
             <p>${esc(a.description)}</p>
-            <a class="more" href="${a.slug}.html">阅读全文 →</a>
+            <a class="more" href="${a.slug}.html">阅读全文</a>
           </article>`
     )
     .join("\n");
@@ -475,15 +508,15 @@ function renderGuidesIndex() {
         <a href="../index.html">首页</a> / 技术指南
       </nav>
       <div class="page-head">
-        <span class="kicker">Knowledge</span>
+        <span class="kicker">02 / 技术资料</span>
         <h1>技术指南</h1>
-        <p style="color:#64748b;max-width:720px">把采购最常问的问题写成可直接引用的短答案：先给结论，再给对比表和选型边界。</p>
+        <p>围绕材质、执行标准、规格和验收整理的短答案，先看结论，再核对适用边界。</p>
       </div>
     </div>
 
-    <section class="section" style="padding-top:28px">
+    <section class="section section-compact">
       <div class="container">
-        <div class="grid">
+        <div class="editorial-grid">
 ${cards}
         </div>
       </div>
@@ -519,14 +552,14 @@ function renderNewsIndex() {
             <p class="kicker">${esc(category)} · ${esc(n.date)}</p>
             <h3>${esc(n.title)}</h3>
             <p>${esc(n.summary)}</p>
-            <a class="more" href="${n.slug}.html">阅读全文 →</a>
+            <a class="more" href="${n.slug}.html">阅读全文</a>
           </article>`
         )
         .join("\n");
       return `        <div class="section-head" style="margin-top:36px">
           <h2>${esc(category)}</h2>
         </div>
-        <div class="grid">
+        <div class="editorial-grid">
 ${cards}
         </div>`;
     })
@@ -537,13 +570,13 @@ ${cards}
         <a href="../index.html">首页</a> / 新闻
       </nav>
       <div class="page-head">
-        <span class="kicker">News</span>
-        <h1>新闻与动态</h1>
-        <p style="color:#64748b;max-width:720px">公司动态与行业新闻。内容以演示为主，用来练习企业站的信息发布与搜索收录。</p>
+        <span class="kicker">03 / 行业资讯</span>
+        <h1>新闻与行业资讯</h1>
+        <p>公司动态、标准变化与采购常见问题。演示站内容用于展示栏目结构。</p>
       </div>
     </div>
 
-    <section class="section" style="padding-top:20px">
+    <section class="section section-compact">
       <div class="container">
 ${categorySections}
       </div>
@@ -609,7 +642,7 @@ function renderNewsItem(n) {
         <a href="../index.html">首页</a> / <a href="../news/index.html">新闻</a> / ${esc(n.title)}
       </nav>
       <div class="page-head">
-        <span class="kicker">News</span>
+        <span class="kicker">行业资讯 / ${esc(n.category)}</span>
         <h1>${esc(n.title)}</h1>
         <div class="badges">
           <span class="badge">${esc(n.category)}</span>
@@ -618,7 +651,7 @@ function renderNewsItem(n) {
       </div>
     </div>
 
-    <section class="section" style="padding-top:28px">
+    <section class="section section-compact">
       <div class="container two-col">
         <article class="article">
           <div class="quick-answer">
@@ -662,32 +695,34 @@ function renderAbout() {
         <a href="index.html">首页</a> / 关于我们
       </nav>
       <div class="page-head">
-        <span class="kicker">About</span>
+        <span class="kicker">04 / 关于鲁恒</span>
         <h1>关于我们</h1>
-        <p style="color:#64748b;max-width:720px">一个用于练习企业建站与 GEO 的钢管行业演示站。</p>
+        <p>钢管产品资料、执行标准与采购选型内容的展示页面。</p>
       </div>
     </div>
 
-    <section class="section" style="padding-top:28px">
+    <section class="section section-compact">
       <div class="container two-col">
         <article class="article">
           <div class="quick-answer">
-            <b>说明：</b>本站为建站案例演示，非真实经营主体。品牌、电话、地址和库存信息均为演示数据。
+            <b>说明：</b>本站为钢管行业演示项目，非真实经营主体。品牌、电话、地址和库存信息均为演示数据。
           </div>
-          <h2>我们在做什么</h2>
-          <p>这个站点用钢管行业作为案例，练习从域名、托管、后台内容管理到搜索收录和 GEO 优化的完整流程。页面里的产品分类、参数表、执行标准和常见问题，都是按照真实企业站的阅读与检索习惯组织的。</p>
+          <h2>资料怎么组织</h2>
+          <p>站点以采购人员查找产品的顺序组织内容：先按用途找到品类，再核对执行标准、材质、外径和壁厚，最后查看常见问题与验收要点。</p>
+          <p>关键参数放在正文表格里，避免只印在图片上。不同牌号、不同标准之间存在适用范围差异，页面只提供选型线索，最终仍需以设计文件和质保书为准。</p>
           <h2>内容原则</h2>
           <ul>
-            <li>产品参数用表格呈现，不把关键信息印在图片里</li>
-            <li>先给结论，再给对比和适用边界</li>
-            <li>公司名称、电话、地址保持全站一致</li>
-            <li>重要页面提供结构化数据，方便搜索和 AI 理解</li>
+            <li>先写适用场景，再列规格与执行标准</li>
+            <li>不把演示参数写成现货或成交承诺</li>
+            <li>材质、性能和验收要求注明以质保书为准</li>
+            <li>采购需求尽量用可核对的字段描述</li>
           </ul>
-          <h2>技术栈</h2>
-          <p>静态 HTML + 内容 JSON + 构建脚本，后台使用 Decap CMS，托管在 Netlify。每次在后台发布内容，都会提交到 Git 并自动重新部署。</p>
+          <h2>适合查阅的场景</h2>
+          <p>需要快速确认 GB/T 5310 高压锅炉管、GB/T 3087 低中压锅炉管、12Cr1MoVG 合金管等资料的采购、技术和内容人员，可以先从产品中心或技术指南进入。</p>
           <div class="related">
             <a href="products/index.html">产品中心</a>
-            <a href="news/index.html">新闻与动态</a>
+            <a href="guides/index.html">技术指南</a>
+            <a href="news/index.html">行业资讯</a>
             <a href="contact.html">联系我们</a>
           </div>
         </article>
@@ -698,7 +733,7 @@ ${contactAside()}
 
   return layout({
     title: `关于我们-${site.brand}`,
-    description: "鲁恒钢管演示站的项目说明、内容原则与技术栈。本站为建站与 GEO 案例演示，非真实经营主体。",
+    description: "鲁恒钢管演示站的资料结构与内容说明。本站为建站演示，非真实经营主体。",
     canonicalPath: "/about.html",
     ogType: "website",
     schema,
@@ -721,32 +756,47 @@ function renderContact() {
         <a href="index.html">首页</a> / 联系我们
       </nav>
       <div class="page-head">
-        <span class="kicker">Contact</span>
-        <h1>联系我们</h1>
-        <p style="color:#64748b;max-width:720px">演示联系方式，仅用于页面结构展示；表单不会发送真实数据。</p>
+        <span class="kicker">05 / 联系与询价</span>
+        <h1>把采购规格说明白</h1>
+        <p>材质、外径×壁厚、数量、执行标准和交期越完整，越容易核对需求。</p>
       </div>
     </div>
 
-    <section class="section" style="padding-top:28px">
+    <section class="section section-compact">
       <div class="container two-col">
         <div class="panel">
-          <h2 style="margin-top:0">演示联系方式</h2>
+          <h2 style="margin-top:0">联系方式</h2>
           <p><strong>电话：</strong>${esc(site.phone)}</p>
           <p><strong>邮箱：</strong>${esc(site.email)}</p>
           <p><strong>地址：</strong>${esc(site.address)}</p>
-          <p style="color:#64748b">以上均为演示信息，不对应真实业务。真实项目上线前需替换为实际联系方式。</p>
-          <form class="form" action="#" method="get" style="max-width:520px">
-            <input type="text" name="name" placeholder="称呼（演示，不会发送）" aria-label="称呼">
-            <input type="tel" name="phone" placeholder="手机号（演示，不会发送）" aria-label="手机号">
-            <input type="text" name="company" placeholder="公司名称（演示，不会发送）" aria-label="公司名称">
-            <textarea name="message" rows="4" placeholder="采购需求：材质、规格、数量（演示，不会发送）" aria-label="采购需求"></textarea>
-            <button class="btn btn-primary" type="button">提交（演示按钮）</button>
+          <p class="small-note">以上均为演示信息，不对应真实业务。正式上线前需替换。</p>
+          <form class="form inquiry-form" action="#" method="get" style="max-width:620px">
+            <div class="form-row">
+              <label>称呼
+                <input type="text" name="name" data-label="称呼" placeholder="怎么称呼">
+              </label>
+              <label>联系电话
+                <input type="tel" name="phone" data-label="联系电话" placeholder="便于后续联系">
+              </label>
+            </div>
+            <label>公司名称
+              <input type="text" name="company" data-label="公司名称" placeholder="选填">
+            </label>
+            <label>采购需求
+              <textarea name="message" data-label="采购需求" rows="4" placeholder="例如：20G，Φ133×10，GB/T 5310，20 吨"></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">生成询价摘要</button>
+            <p class="form-note">当前演示站仅在本页生成摘要，不会发送或保存资料。</p>
+            <div class="inquiry-result" aria-live="polite">
+              <strong>询价摘要</strong>
+              <pre></pre>
+            </div>
           </form>
         </div>
         <aside class="contact-box">
           <h3 style="margin-top:0">询价前请准备</h3>
-          <p>材质牌号、外径×壁厚、数量、执行标准和交货状态。信息越完整，供应商越容易给出准确报价。</p>
-          <p>本站为建站案例演示，非真实经营主体。</p>
+          <p>1. 材质牌号与执行标准<br>2. 外径×壁厚、定尺长度<br>3. 数量、交货状态与交期<br>4. 特殊检验或资料要求</p>
+          <p>如果有设计温度、介质或用途，也建议一并说明。</p>
           <a class="btn btn-ghost" style="margin-top:8px" href="guides/pipe-inspection.html">查看验收清单</a>
         </aside>
       </div>

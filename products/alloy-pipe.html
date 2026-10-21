@@ -8,6 +8,7 @@
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://luhenggang.space/products/alloy-pipe.html">
   <link rel="stylesheet" href="../assets/style.css">
+  <script defer src="../assets/site.js"></script>
   <meta property="og:type" content="product">
   <meta property="og:title" content="合金管_P91/P22/12Cr1MoVG_高温高压用无缝钢管-鲁恒钢管（演示站）">
   <meta property="og:description" content="合金管覆盖 P91、P22、12Cr1MoVG、15CrMoG 等材质，执行 GB/T 5310、ASME SA335 等标准，适用于高温高压蒸汽管道、锅炉集箱与石化装置。">
@@ -109,18 +110,34 @@
 </head>
 <body>
   <header class="site-header">
+    <div class="header-utility">
+      <div class="container utility-inner">
+        <p>钢管选型资料站 · 按材质、标准与规格查产品</p>
+        <div class="utility-meta">
+          <a href="tel:06350000000"><strong>0635-000-0000</strong></a>
+          <em class="utility-demo">演示联系方式</em>
+        </div>
+      </div>
+    </div>
     <div class="container header-inner">
       <a class="brand" href="../index.html">
         <span class="brand-mark">鲁恒</span>
-        <span>鲁恒钢管<small>LUHENG STEEL · 演示站</small></span>
+        <span>鲁恒钢管<small>STEEL PIPE · 选型与供应资料</small></span>
       </a>
-      <nav class="nav" aria-label="主导航">
+      <nav class="nav" id="site-nav" aria-label="主导航">
         <a href="../products/index.html">产品中心</a>
         <a href="../guides/index.html">技术指南</a>
-        <a href="../news/index.html">新闻</a>
+        <a href="../news/index.html">行业资讯</a>
         <a href="../about.html">关于我们</a>
         <a href="../contact.html">联系我们</a>
       </nav>
+      <div class="header-action">
+        <a class="header-phone" href="tel:06350000000">0635-000-0000</a>
+        <a class="btn btn-primary" href="../contact.html">整理询价</a>
+      </div>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="打开导航">
+        <span></span>
+      </button>
     </div>
   </header>
 
@@ -130,7 +147,7 @@
         <a href="../index.html">首页</a> / <a href="../products/index.html">产品中心</a> / 合金管
       </nav>
       <div class="page-head">
-        <span class="kicker">Product</span>
+        <span class="kicker">产品参数 / GB/T 5310 / ASME SA335</span>
         <h1>合金管</h1>
         <div class="badges">
           <span class="badge">执行标准：GB/T 5310 / ASME SA335</span>
@@ -141,11 +158,11 @@
       </div>
     </div>
 
-    <section class="section" style="padding-top:32px">
+    <section class="section section-compact">
       <div class="container two-col">
         <div>
           <div class="quick-answer">
-            <b>直接回答：</b>合金管是在碳钢基础上加入铬、钼、钒等元素的无缝钢管，常见材质有 P91、P22、12Cr1MoVG 和 15CrMoG，主要用于高温高压工况。选型时要看设计温度、许用应力和焊接工艺。
+            <b>选型要点：</b>合金管是在碳钢基础上加入铬、钼、钒等元素的无缝钢管，常见材质有 P91、P22、12Cr1MoVG 和 15CrMoG，主要用于高温高压工况。选型时要看设计温度、许用应力和焊接工艺。
           </div>
 
           <p style="color:#334155">合金管通过加入铬、钼、钒等合金元素，提高高温强度、抗蠕变性能和抗氧化能力，常用于电站锅炉、蒸汽管道和石化装置。</p>
@@ -171,8 +188,8 @@
             <li>高温高压蒸汽管道、锅炉集箱、石化装置</li>
             <li>询价时提供：材质、外径×壁厚、数量、执行标准、交货状态和交期要求。</li>
             <li>到货核对：材质单、质保书、炉批号、外观、壁厚和长度。</li>
-            <li>本站为演示站，不提供真实库存、报价或发货服务。</li>
           </ul>
+          <p class="small-note">本站参数用于页面演示，实际库存、价格和供货范围需另行确认。</p>
 
           <h2>常见问题</h2>
           <div class="faq">
@@ -199,13 +216,24 @@
         </div>
 
         <aside class="contact-box">
-          <h3 style="margin-top:0">演示联系方式</h3>
-          <p>电话：0635-000-0000<br>邮箱：demo@luhenggang.example<br>地址：山东省聊城市（演示地址）</p>
-          <form class="form" action="#" method="get">
-            <input type="text" name="name" placeholder="称呼（演示，不会发送）" aria-label="称呼">
-            <input type="tel" name="phone" placeholder="手机号（演示，不会发送）" aria-label="手机号">
-            <textarea name="message" rows="3" placeholder="规格与数量（演示，不会发送）" aria-label="采购需求"></textarea>
-            <button class="btn btn-primary" type="button">提交（演示按钮）</button>
+          <h3>整理采购需求</h3>
+          <p>电话：0635-000-0000<br>山东省聊城市（演示地址）</p>
+          <form class="form inquiry-form" action="#" method="get">
+            <label>称呼
+              <input type="text" name="name" data-label="称呼" placeholder="怎么称呼">
+            </label>
+            <label>联系电话
+              <input type="tel" name="phone" data-label="联系电话" placeholder="便于后续联系">
+            </label>
+            <label>规格与数量
+              <textarea name="message" data-label="规格与数量" rows="3" placeholder="例如：20G，Φ133×10，20 吨"></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">生成询价摘要</button>
+            <p class="form-note">仅在本页生成，不会自动发送。</p>
+            <div class="inquiry-result" aria-live="polite">
+              <strong>询价摘要</strong>
+              <pre></pre>
+            </div>
           </form>
         </aside>
       </div>
@@ -216,26 +244,29 @@
     <div class="container">
       <div class="footer-grid">
         <div>
-          <h4>鲁恒钢管（演示站）</h4>
-          <p>钢管行业企业站样板：参数表 + 执行标准 + 选型问答。</p>
-          <p>用于建站与 GEO 案例演示，不构成任何供货或价格承诺。</p>
+          <div class="footer-brand">
+            <span class="brand-mark">鲁恒</span>
+            <strong>鲁恒钢管</strong>
+          </div>
+          <p>高压锅炉管、合金管、管线管及常用无缝钢管选型资料。</p>
+          <p>本站为演示项目，不构成供货、价格或材质承诺。</p>
         </div>
         <div>
-          <h4>页面</h4>
+          <h4>站内导航</h4>
           <p><a href="../index.html">首页</a></p>
           <p><a href="../products/index.html">产品中心</a></p>
           <p><a href="../guides/index.html">技术指南</a></p>
-          <p><a href="../news/index.html">新闻</a></p>
+          <p><a href="../news/index.html">行业资讯</a></p>
           <p><a href="../about.html">关于我们</a></p>
           <p><a href="../contact.html">联系我们</a></p>
         </div>
         <div>
-          <h4>说明</h4>
-          <p>本站为建站案例演示，非真实经营主体。</p>
-          <p>电话、地址、库存均为演示信息。</p>
+          <h4>采购提示</h4>
+          <p>询价请准备：材质、外径×壁厚、数量、标准与交期。</p>
+          <p>材质性能与实际供货范围以质保书和双方确认文件为准。</p>
         </div>
       </div>
-      <p class="demo-note">© 2026 鲁恒钢管（演示站） · 建站与 GEO 练习项目 · 备案号：演示站未备案</p>
+      <p class="demo-note">© 2026 鲁恒钢管（演示站） · 演示站 · 电话、地址与库存均为演示信息</p>
     </div>
   </footer>
 </body>
