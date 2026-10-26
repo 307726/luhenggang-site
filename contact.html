@@ -28,10 +28,11 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳到正文</a>
   <header class="site-header">
     <div class="header-utility">
       <div class="container utility-inner">
-        <p>钢管选型资料站 · 按材质、标准与规格查产品</p>
+        <p>钢管选型资料站 · 按用途、材质与标准查产品</p>
         <div class="utility-meta">
           <a href="tel:06350000000"><strong>0635-000-0000</strong></a>
           <em class="utility-demo">演示联系方式</em>
@@ -39,9 +40,9 @@
       </div>
     </div>
     <div class="container header-inner">
-      <a class="brand" href="index.html">
+      <a class="brand" href="index.html" aria-label="鲁恒钢管首页">
         <span class="brand-mark">鲁恒</span>
-        <span>鲁恒钢管<small>STEEL PIPE · 选型与供应资料</small></span>
+        <span>鲁恒钢管<small>钢管选型与供应资料</small></span>
       </a>
       <nav class="nav" id="site-nav" aria-label="主导航">
         <a href="products/index.html">产品中心</a>
@@ -60,13 +61,12 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <div class="container">
       <nav class="breadcrumb" aria-label="面包屑">
         <a href="index.html">首页</a> / 联系我们
       </nav>
       <div class="page-head">
-        <span class="kicker">05 / 联系与询价</span>
         <h1>把采购规格说明白</h1>
         <p>材质、外径×壁厚、数量、执行标准和交期越完整，越容易核对需求。</p>
       </div>
@@ -75,12 +75,12 @@
     <section class="section section-compact">
       <div class="container two-col">
         <div class="panel">
-          <h2 style="margin-top:0">联系方式</h2>
+          <h2>联系方式</h2>
           <p><strong>电话：</strong>0635-000-0000</p>
           <p><strong>邮箱：</strong>demo@luhenggang.example</p>
           <p><strong>地址：</strong>山东省聊城市（演示地址）</p>
           <p class="small-note">以上均为演示信息，不对应真实业务。正式上线前需替换。</p>
-          <form class="form inquiry-form" action="#" method="get" style="max-width:620px">
+          <form class="form inquiry-form form-wide" action="#" method="get">
             <div class="form-row">
               <label>称呼
                 <input type="text" name="name" data-label="称呼" placeholder="怎么称呼">
@@ -104,10 +104,10 @@
           </form>
         </div>
         <aside class="contact-box">
-          <h3 style="margin-top:0">询价前请准备</h3>
+          <h3>询价前请准备</h3>
           <p>1. 材质牌号与执行标准<br>2. 外径×壁厚、定尺长度<br>3. 数量、交货状态与交期<br>4. 特殊检验或资料要求</p>
           <p>如果有设计温度、介质或用途，也建议一并说明。</p>
-          <a class="btn btn-ghost" style="margin-top:8px" href="guides/pipe-inspection.html">查看验收清单</a>
+          <a class="btn btn-ghost contact-aside-cta" href="guides/pipe-inspection.html">查看验收清单</a>
         </aside>
       </div>
     </section>
@@ -115,6 +115,9 @@
 
   <footer class="footer">
     <div class="container">
+      <div class="footer-mark" aria-hidden="true">
+        <span>鲁</span><span>恒</span><span>钢</span><span>管</span>
+      </div>
       <div class="footer-grid">
         <div>
           <div class="footer-brand">
@@ -137,6 +140,7 @@
           <h4>采购提示</h4>
           <p>询价请准备：材质、外径×壁厚、数量、标准与交期。</p>
           <p>材质性能与实际供货范围以质保书和双方确认文件为准。</p>
+          <p><a href="assets/banner/CREDITS.md">Banner 图片与授权</a></p>
         </div>
       </div>
       <p class="demo-note">© 2026 鲁恒钢管（演示站） · 演示站 · 电话、地址与库存均为演示信息</p>

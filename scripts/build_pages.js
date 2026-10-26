@@ -61,10 +61,11 @@ ${JSON.stringify(schema, null, 2)}
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳到正文</a>
   <header class="site-header">
     <div class="header-utility">
       <div class="container utility-inner">
-        <p>钢管选型资料站 · 按材质、标准与规格查产品</p>
+        <p>钢管选型资料站 · 按用途、材质与标准查产品</p>
         <div class="utility-meta">
           <a href="tel:${esc(site.phone.replace(/[^\d+]/g, ""))}"><strong>${esc(site.phone)}</strong></a>
           <em class="utility-demo">演示联系方式</em>
@@ -72,9 +73,9 @@ ${JSON.stringify(schema, null, 2)}
       </div>
     </div>
     <div class="container header-inner">
-      <a class="brand" href="${prefix}index.html">
+      <a class="brand" href="${prefix}index.html" aria-label="${esc(site.shortBrand)}首页">
         <span class="brand-mark">鲁恒</span>
-        <span>${esc(site.shortBrand)}<small>STEEL PIPE · 选型与供应资料</small></span>
+        <span>${esc(site.shortBrand)}<small>钢管选型与供应资料</small></span>
       </a>
       <nav class="nav" id="site-nav" aria-label="主导航">
         <a href="${prefix}products/index.html">产品中心</a>
@@ -93,12 +94,15 @@ ${JSON.stringify(schema, null, 2)}
     </div>
   </header>
 
-  <main>
+  <main id="main">
 ${body}
   </main>
 
   <footer class="footer">
     <div class="container">
+      <div class="footer-mark" aria-hidden="true">
+        <span>鲁</span><span>恒</span><span>钢</span><span>管</span>
+      </div>
       <div class="footer-grid">
         <div>
           <div class="footer-brand">
@@ -121,6 +125,7 @@ ${body}
           <h4>采购提示</h4>
           <p>询价请准备：材质、外径×壁厚、数量、标准与交期。</p>
           <p>材质性能与实际供货范围以质保书和双方确认文件为准。</p>
+          <p><a href="${prefix}assets/banner/CREDITS.md">Banner 图片与授权</a></p>
         </div>
       </div>
       <p class="demo-note">© 2026 ${esc(site.brand)} · 演示站 · 电话、地址与库存均为演示信息</p>
@@ -253,7 +258,6 @@ ${compositionRows.map((r) => `                <tr>${r.map((c) => `<td>${esc(c)}<
         <a href="../index.html">首页</a> / <a href="../products/index.html">产品中心</a> / ${esc(p.name)}
       </nav>
       <div class="page-head">
-        <span class="kicker">产品参数 / ${esc(p.standard)}</span>
         <h1>${esc(p.name)}</h1>
         <div class="badges">
           <span class="badge">执行标准：${esc(p.standard)}</span>
@@ -271,7 +275,7 @@ ${compositionRows.map((r) => `                <tr>${r.map((c) => `<td>${esc(c)}<
             <b>选型要点：</b>${esc(p.answer)}
           </div>
 
-${p.intro.map((t) => `          <p style="color:#334155">${esc(t)}</p>`).join("\n")}
+${p.intro.map((t) => `          <p>${esc(t)}</p>`).join("\n")}
 
           <h2>规格参数</h2>
           <div class="table-wrap">
@@ -397,7 +401,6 @@ ${b.table.rows
         <a href="../index.html">首页</a> / <a href="../guides/index.html">技术指南</a> / ${esc(a.h1)}
       </nav>
       <div class="page-head">
-        <span class="kicker">技术指南 / 选型参考</span>
         <h1>${esc(a.h1)}</h1>
         <div class="badges">
 ${a.badges.map((b) => `          <span class="badge">${esc(b)}</span>`).join("\n")}
@@ -444,10 +447,9 @@ ${contactAside()}
 function renderProductsIndex() {
   const cards = data.products
     .map(
-      (p, index) => `          <article class="card">
-            <span class="catalog-no">${String(index + 1).padStart(2, "0")} / ${esc(p.standard)}</span>
+      (p) => `          <article class="card">
             <h3>${esc(p.name)}</h3>
-            <p>${esc(p.description)}</p>
+            <p>${esc(p.materials)}，执行标准 ${esc(p.standard)}。</p>
             <a class="more" href="${p.slug}.html">查看参数与选型</a>
           </article>`
     )
@@ -458,7 +460,6 @@ function renderProductsIndex() {
         <a href="../index.html">首页</a> / 产品中心
       </nav>
       <div class="page-head">
-        <span class="kicker">01 / 产品目录</span>
         <h1>产品中心</h1>
         <p>按工况和标准划分产品线，先查执行标准与规格范围，再核对材质和交货状态。</p>
       </div>
@@ -466,7 +467,7 @@ function renderProductsIndex() {
 
     <section class="section section-compact">
       <div class="container">
-        <div class="product-catalog">
+        <div class="grid">
 ${cards}
         </div>
       </div>
@@ -494,8 +495,7 @@ ${cards}
 function renderGuidesIndex() {
   const cards = data.articles
     .map(
-      (a, index) => `          <article class="card">
-            <span class="catalog-no">${String(index + 1).padStart(2, "0")} / 选型参考</span>
+      (a) => `          <article class="card">
             <h3>${esc(a.h1)}</h3>
             <p>${esc(a.description)}</p>
             <a class="more" href="${a.slug}.html">阅读全文</a>
@@ -508,7 +508,6 @@ function renderGuidesIndex() {
         <a href="../index.html">首页</a> / 技术指南
       </nav>
       <div class="page-head">
-        <span class="kicker">02 / 技术资料</span>
         <h1>技术指南</h1>
         <p>围绕材质、执行标准、规格和验收整理的短答案，先看结论，再核对适用边界。</p>
       </div>
@@ -549,14 +548,14 @@ function renderNewsIndex() {
       const cards = items
         .map(
           (n) => `          <article class="card">
-            <p class="kicker">${esc(category)} · ${esc(n.date)}</p>
+            <p class="entry-meta">${esc(category)} · ${esc(n.date)}</p>
             <h3>${esc(n.title)}</h3>
             <p>${esc(n.summary)}</p>
             <a class="more" href="${n.slug}.html">阅读全文</a>
           </article>`
         )
         .join("\n");
-      return `        <div class="section-head" style="margin-top:36px">
+      return `        <div class="section-head section-head--spaced">
           <h2>${esc(category)}</h2>
         </div>
         <div class="editorial-grid">
@@ -570,7 +569,6 @@ ${cards}
         <a href="../index.html">首页</a> / 新闻
       </nav>
       <div class="page-head">
-        <span class="kicker">03 / 行业资讯</span>
         <h1>新闻与行业资讯</h1>
         <p>公司动态、标准变化与采购常见问题。演示站内容用于展示栏目结构。</p>
       </div>
@@ -642,7 +640,6 @@ function renderNewsItem(n) {
         <a href="../index.html">首页</a> / <a href="../news/index.html">新闻</a> / ${esc(n.title)}
       </nav>
       <div class="page-head">
-        <span class="kicker">行业资讯 / ${esc(n.category)}</span>
         <h1>${esc(n.title)}</h1>
         <div class="badges">
           <span class="badge">${esc(n.category)}</span>
@@ -695,7 +692,6 @@ function renderAbout() {
         <a href="index.html">首页</a> / 关于我们
       </nav>
       <div class="page-head">
-        <span class="kicker">04 / 关于鲁恒</span>
         <h1>关于我们</h1>
         <p>钢管产品资料、执行标准与采购选型内容的展示页面。</p>
       </div>
@@ -756,7 +752,6 @@ function renderContact() {
         <a href="index.html">首页</a> / 联系我们
       </nav>
       <div class="page-head">
-        <span class="kicker">05 / 联系与询价</span>
         <h1>把采购规格说明白</h1>
         <p>材质、外径×壁厚、数量、执行标准和交期越完整，越容易核对需求。</p>
       </div>
@@ -765,12 +760,12 @@ function renderContact() {
     <section class="section section-compact">
       <div class="container two-col">
         <div class="panel">
-          <h2 style="margin-top:0">联系方式</h2>
+          <h2>联系方式</h2>
           <p><strong>电话：</strong>${esc(site.phone)}</p>
           <p><strong>邮箱：</strong>${esc(site.email)}</p>
           <p><strong>地址：</strong>${esc(site.address)}</p>
           <p class="small-note">以上均为演示信息，不对应真实业务。正式上线前需替换。</p>
-          <form class="form inquiry-form" action="#" method="get" style="max-width:620px">
+          <form class="form inquiry-form form-wide" action="#" method="get">
             <div class="form-row">
               <label>称呼
                 <input type="text" name="name" data-label="称呼" placeholder="怎么称呼">
@@ -794,10 +789,10 @@ function renderContact() {
           </form>
         </div>
         <aside class="contact-box">
-          <h3 style="margin-top:0">询价前请准备</h3>
+          <h3>询价前请准备</h3>
           <p>1. 材质牌号与执行标准<br>2. 外径×壁厚、定尺长度<br>3. 数量、交货状态与交期<br>4. 特殊检验或资料要求</p>
           <p>如果有设计温度、介质或用途，也建议一并说明。</p>
-          <a class="btn btn-ghost" style="margin-top:8px" href="guides/pipe-inspection.html">查看验收清单</a>
+          <a class="btn btn-ghost contact-aside-cta" href="guides/pipe-inspection.html">查看验收清单</a>
         </aside>
       </div>
     </section>`;

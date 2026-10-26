@@ -28,10 +28,11 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳到正文</a>
   <header class="site-header">
     <div class="header-utility">
       <div class="container utility-inner">
-        <p>钢管选型资料站 · 按材质、标准与规格查产品</p>
+        <p>钢管选型资料站 · 按用途、材质与标准查产品</p>
         <div class="utility-meta">
           <a href="tel:06350000000"><strong>0635-000-0000</strong></a>
           <em class="utility-demo">演示联系方式</em>
@@ -39,9 +40,9 @@
       </div>
     </div>
     <div class="container header-inner">
-      <a class="brand" href="../index.html">
+      <a class="brand" href="../index.html" aria-label="鲁恒钢管首页">
         <span class="brand-mark">鲁恒</span>
-        <span>鲁恒钢管<small>STEEL PIPE · 选型与供应资料</small></span>
+        <span>鲁恒钢管<small>钢管选型与供应资料</small></span>
       </a>
       <nav class="nav" id="site-nav" aria-label="主导航">
         <a href="../products/index.html">产品中心</a>
@@ -60,13 +61,12 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <div class="container">
       <nav class="breadcrumb" aria-label="面包屑">
         <a href="../index.html">首页</a> / 产品中心
       </nav>
       <div class="page-head">
-        <span class="kicker">01 / 产品目录</span>
         <h1>产品中心</h1>
         <p>按工况和标准划分产品线，先查执行标准与规格范围，再核对材质和交货状态。</p>
       </div>
@@ -74,41 +74,35 @@
 
     <section class="section section-compact">
       <div class="container">
-        <div class="product-catalog">
+        <div class="grid">
           <article class="card">
-            <span class="catalog-no">01 / GB/T 5310</span>
             <h3>高压锅炉管</h3>
-            <p>高压锅炉管执行 GB/T 5310，覆盖 20G、15CrMoG、12Cr1MoVG 等材质，常用外径 6-426 mm、壁厚 1-60 mm，适用于锅炉受热面、集箱与蒸汽管道。【测试】</p>
+            <p>20G、15CrMoG、12Cr1MoVG，执行标准 GB/T 5310。</p>
             <a class="more" href="20g-boiler-tube.html">查看参数与选型</a>
           </article>
           <article class="card">
-            <span class="catalog-no">02 / GB/T 5310 / ASME SA335</span>
             <h3>合金管</h3>
-            <p>合金管覆盖 P91、P22、12Cr1MoVG、15CrMoG 等材质，执行 GB/T 5310、ASME SA335 等标准，适用于高温高压蒸汽管道、锅炉集箱与石化装置。</p>
+            <p>P91、P22、12Cr1MoVG、15CrMoG，执行标准 GB/T 5310 / ASME SA335。</p>
             <a class="more" href="alloy-pipe.html">查看参数与选型</a>
           </article>
           <article class="card">
-            <span class="catalog-no">03 / GB/T 9711 / API 5L</span>
             <h3>管线管</h3>
-            <p>管线管覆盖 L245N、L360N 等材质，执行 GB/T 9711、API 5L 等标准，适用于石油天然气长输管道和集输管道。</p>
+            <p>L245N、L360N、L415，执行标准 GB/T 9711 / API 5L。</p>
             <a class="more" href="line-pipe.html">查看参数与选型</a>
           </article>
           <article class="card">
-            <span class="catalog-no">04 / GB/T 8162</span>
             <h3>结构管</h3>
-            <p>结构管执行 GB/T 8162，覆盖 10#、20#、35#、45#、Q345B 等材质，适用于机械结构、工程结构和支架。</p>
+            <p>10#、20#、35#、45#、Q345B，执行标准 GB/T 8162。</p>
             <a class="more" href="structural-pipe.html">查看参数与选型</a>
           </article>
           <article class="card">
-            <span class="catalog-no">05 / GB/T 8163</span>
             <h3>流体管</h3>
-            <p>流体管执行 GB/T 8163，覆盖 10#、20#、Q345B/C/D/E 等材质，适用于水、油、气等流体输送。</p>
+            <p>10#、20#、Q345B/C/D/E，执行标准 GB/T 8163。</p>
             <a class="more" href="fluid-pipe.html">查看参数与选型</a>
           </article>
           <article class="card">
-            <span class="catalog-no">06 / GB/T 14976</span>
             <h3>不锈钢管</h3>
-            <p>不锈钢管覆盖 304、304L、316L、310S、409L 等材质，执行 GB/T 14976，适用于化工、食品和耐腐蚀工况。</p>
+            <p>304、304L、316L、310S、409L，执行标准 GB/T 14976。</p>
             <a class="more" href="stainless-pipe.html">查看参数与选型</a>
           </article>
         </div>
@@ -118,6 +112,9 @@
 
   <footer class="footer">
     <div class="container">
+      <div class="footer-mark" aria-hidden="true">
+        <span>鲁</span><span>恒</span><span>钢</span><span>管</span>
+      </div>
       <div class="footer-grid">
         <div>
           <div class="footer-brand">
@@ -140,6 +137,7 @@
           <h4>采购提示</h4>
           <p>询价请准备：材质、外径×壁厚、数量、标准与交期。</p>
           <p>材质性能与实际供货范围以质保书和双方确认文件为准。</p>
+          <p><a href="../assets/banner/CREDITS.md">Banner 图片与授权</a></p>
         </div>
       </div>
       <p class="demo-note">© 2026 鲁恒钢管（演示站） · 演示站 · 电话、地址与库存均为演示信息</p>

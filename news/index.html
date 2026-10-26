@@ -55,10 +55,11 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳到正文</a>
   <header class="site-header">
     <div class="header-utility">
       <div class="container utility-inner">
-        <p>钢管选型资料站 · 按材质、标准与规格查产品</p>
+        <p>钢管选型资料站 · 按用途、材质与标准查产品</p>
         <div class="utility-meta">
           <a href="tel:06350000000"><strong>0635-000-0000</strong></a>
           <em class="utility-demo">演示联系方式</em>
@@ -66,9 +67,9 @@
       </div>
     </div>
     <div class="container header-inner">
-      <a class="brand" href="../index.html">
+      <a class="brand" href="../index.html" aria-label="鲁恒钢管首页">
         <span class="brand-mark">鲁恒</span>
-        <span>鲁恒钢管<small>STEEL PIPE · 选型与供应资料</small></span>
+        <span>鲁恒钢管<small>钢管选型与供应资料</small></span>
       </a>
       <nav class="nav" id="site-nav" aria-label="主导航">
         <a href="../products/index.html">产品中心</a>
@@ -87,13 +88,12 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <div class="container">
       <nav class="breadcrumb" aria-label="面包屑">
         <a href="../index.html">首页</a> / 新闻
       </nav>
       <div class="page-head">
-        <span class="kicker">03 / 行业资讯</span>
         <h1>新闻与行业资讯</h1>
         <p>公司动态、标准变化与采购常见问题。演示站内容用于展示栏目结构。</p>
       </div>
@@ -101,41 +101,41 @@
 
     <section class="section section-compact">
       <div class="container">
-        <div class="section-head" style="margin-top:36px">
+        <div class="section-head section-head--spaced">
           <h2>公司动态</h2>
         </div>
         <div class="editorial-grid">
           <article class="card">
-            <p class="kicker">公司动态 · 2026-10-19</p>
+            <p class="entry-meta">公司动态 · 2026-10-19</p>
             <h3>产品参数表完成结构化整理</h3>
             <p>6 个产品分类的执行标准、常用材质、规格范围和常见问题已经按采购阅读顺序整理。</p>
             <a class="more" href="content-structure.html">阅读全文</a>
           </article>
           <article class="card">
-            <p class="kicker">公司动态 · 2026-10-12</p>
+            <p class="entry-meta">公司动态 · 2026-10-12</p>
             <h3>产品与资讯内容持续更新</h3>
             <p>后续会继续补充产品规格、标准说明和采购常见问题，方便站内查阅。</p>
             <a class="more" href="admin-workflow.html">阅读全文</a>
           </article>
         </div>
-        <div class="section-head" style="margin-top:36px">
+        <div class="section-head section-head--spaced">
           <h2>行业新闻</h2>
         </div>
         <div class="editorial-grid">
           <article class="card">
-            <p class="kicker">行业新闻 · 2026-10-20</p>
+            <p class="entry-meta">行业新闻 · 2026-10-20</p>
             <h3>高压锅炉管采购，先核对这 4 项参数</h3>
             <p>材质牌号、执行标准、外径×壁厚和质保资料，是高压锅炉管询价与到货核对时最应先确认的四项内容。</p>
             <a class="more" href="site-launch.html">阅读全文</a>
           </article>
           <article class="card">
-            <p class="kicker">行业新闻 · 2026-10-18</p>
+            <p class="entry-meta">行业新闻 · 2026-10-18</p>
             <h3>高压锅炉管选型：先看标准，再看工况</h3>
             <p>GB/T 5310 与 GB/T 3087 的适用压力等级不同，选型不能只看材质牌号，还要核对设计温度、压力和执行标准。</p>
             <a class="more" href="gb5310-selection.html">阅读全文</a>
           </article>
           <article class="card">
-            <p class="kicker">行业新闻 · 2026-10-16</p>
+            <p class="entry-meta">行业新闻 · 2026-10-16</p>
             <h3>无缝钢管与焊管：没有绝对优劣，只有适用场景</h3>
             <p>承压、高温和重要结构优先考虑无缝管；一般流体输送和大口径场合，焊管更经济。</p>
             <a class="more" href="seamless-vs-welded.html">阅读全文</a>
@@ -147,6 +147,9 @@
 
   <footer class="footer">
     <div class="container">
+      <div class="footer-mark" aria-hidden="true">
+        <span>鲁</span><span>恒</span><span>钢</span><span>管</span>
+      </div>
       <div class="footer-grid">
         <div>
           <div class="footer-brand">
@@ -169,6 +172,7 @@
           <h4>采购提示</h4>
           <p>询价请准备：材质、外径×壁厚、数量、标准与交期。</p>
           <p>材质性能与实际供货范围以质保书和双方确认文件为准。</p>
+          <p><a href="../assets/banner/CREDITS.md">Banner 图片与授权</a></p>
         </div>
       </div>
       <p class="demo-note">© 2026 鲁恒钢管（演示站） · 演示站 · 电话、地址与库存均为演示信息</p>
